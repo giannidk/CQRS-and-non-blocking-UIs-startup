@@ -1,1 +1,4 @@
+- "!include public_commands.yaml"
+- "!include public_commands_responses.yaml"
+- "!include public_responses.yaml"
 - "!include public_todos.yaml"

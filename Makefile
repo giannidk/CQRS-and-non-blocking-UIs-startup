@@ -92,5 +92,5 @@ seed-apply:
 
 
 db: 
-	@hasura migrate apply --version "1655298356270" --database-name default --project $(PROJECT)
+	@hasura migrate apply --version "1654870430890" --database-name default --project $(PROJECT)
 	@hasura metadata apply --project $(PROJECT)
