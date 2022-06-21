@@ -1,0 +1,54 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:13.3
+    container_name: postgres
+    restart: unless-stopped
+    ports:
+      - ${PG_PORT:-5432}:5432
+    volumes:
+      - .docker-data/hasura-db:/var/lib/postgresql/data
+      #- ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      
+  hasura:
+    image: hasura/graphql-engine:latest.cli-migrations-v3
+    container_name: hasura
+    ports:
+      - ${HASURA_PORT:-8080}:8080
+    depends_on:
+      - "postgres"
+    restart: unless-stopped
+    user: "0"
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_ADMIN_SECRET:-hasura}
+    healthcheck:
+      test: ["CMD", "wget", "-qO", "-", "http://localhost:8080/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      
+
+  ###
+  ### UTILITIES
+  ###
+
+  adminer:
+    image: adminer:4.7
+    container_name: adminer
+    links:
+      - postgres:postgres
+    ports:
+      - "${ADMINER_PORT:-8008}:8080"
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
