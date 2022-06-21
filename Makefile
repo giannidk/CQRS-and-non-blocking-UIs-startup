@@ -12,6 +12,9 @@ start-all:
 install-client:
 	@cd client && npm install
 
+install-backend:
+	@cd server && npm install
+
 stop:
 	@echo "Stopping the Project..."
 	@docker-compose down
@@ -22,6 +25,8 @@ clean: stop
 
 reset: stop clean start
 
+backend:
+	@cd server && npm start
 
 #
 # ENV defaults
@@ -94,3 +99,4 @@ seed-apply:
 db: 
 	@hasura migrate apply --version "1654870430890" --database-name default --project $(PROJECT)
 	@hasura metadata apply --project $(PROJECT)
+# @hasura seed apply --file todo_123.sql --database-name default --project $(PROJECT)
