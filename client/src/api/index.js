@@ -4,7 +4,7 @@ const BASE_URL = "http://localhost:8080/v1/graphql";
 const ADMIN_SECRET = 'hasura'
 const USER_ID = 'Gianni'
 
-export const fetchTodos = () => {
+/* export const fetchTodos = () => {
 	return axios({
 		url: BASE_URL,
 		method: 'post',
@@ -22,6 +22,36 @@ export const fetchTodos = () => {
 					updated_at
 				  }
 			  }
+			`
+		}
+	})
+} */
+export const fetchList = () => {
+	return axios({
+		url: BASE_URL,
+		method: 'post',
+		headers: {
+			"x-hasura-admin-secret": ADMIN_SECRET
+		},
+		data: {
+			query: `
+			query FetchtList {
+				commands: commands_responses(where: {cmd_type: {_ilike: "todo_%"}}) {
+					item_id
+					cmd_type
+					last_response_at
+					created_at
+					data_in
+					data_out
+				}
+				todos {
+					created_at
+					id
+					is_completed
+					title
+					updated_at
+				}
+			}
 			`
 		}
 	})

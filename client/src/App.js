@@ -14,7 +14,7 @@ function App() {
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {    
-    fetchTodos()
+    fetchList()
   }, []);
 
   const editItem = (item) => {
@@ -29,10 +29,10 @@ function App() {
   };
 
 
-  const fetchTodos = () => {
+  const fetchList = () => {
     setIsLoading(true)
    setTimeout(() => {
-    api.fetchTodos()
+    api.fetchList()
     .then( result => {
       if(result.data?.data?.todos){
         setTodosList(result.data.data.todos)
@@ -54,7 +54,7 @@ function App() {
           setHasError(result.data.errors[0].message)
         }else{
           setHasError(null)
-          fetchTodos()
+          fetchList()
         }
       })
       .catch(error => setHasError(error.message))
@@ -65,7 +65,7 @@ function App() {
           setHasError(result.data.errors[0].message)
         }else{
           setHasError(null)
-          fetchTodos()
+          fetchList()
         }
       })
       .catch(error => setHasError(error.message))
@@ -80,7 +80,7 @@ function App() {
           setHasError(result.data.errors[0].message)
         }else{
           setHasError(null)
-          fetchTodos()
+          fetchList()
         }
       })
       .catch(error => setHasError(error.message))
