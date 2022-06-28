@@ -7,7 +7,7 @@ services:
     ports:
       - ${PG_PORT:-5432}:5432
     volumes:
-      - .docker-data/hasura-db:/var/lib/postgresql/data
+      - .cqrs-data/hasura-db:/var/lib/postgresql/data
       #- ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}

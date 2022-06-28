@@ -1,11 +1,11 @@
 start:
 	@echo "Starting the Project on Docker..."
-	@mkdir -p .docker-data
+	@mkdir -p .cqrs-data
 	@docker-compose up -d postgres hasura adminer
 
 start-all:
 	@echo "Starting the Project on Docker..."
-	@mkdir -p .docker-data
+	@mkdir -p .cqrs-data
 	@docker-compose up -d postgres hasura adminer
 	@cd client && npm run start
 
@@ -21,7 +21,7 @@ stop:
 
 clean: stop
 	@echo "Deleting the Project's state..."
-	@rm -rf .docker-data	
+	@rm -rf .cqrs-data	
 
 reset: stop clean start
 
@@ -99,4 +99,4 @@ seed-apply:
 db: 
 	@hasura migrate apply --version "1654870430890" --database-name default --project $(PROJECT)
 	@hasura metadata apply --project $(PROJECT)
-# @hasura seed apply --file todo_123.sql --database-name default --project $(PROJECT)
+	@hasura seed apply --file todo_123.sql --database-name default --project $(PROJECT)
