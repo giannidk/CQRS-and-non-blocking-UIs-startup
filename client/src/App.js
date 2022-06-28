@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import LinearProgress from '@mui/material/LinearProgress';
 import Alert from '@mui/material/Alert';
 import * as api from './api'
+import * as utils from './utils'
 
 function App() {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -35,7 +36,8 @@ function App() {
     api.fetchList()
     .then( result => {
       if(result.data?.data?.todos){
-        setTodosList(result.data.data.todos)
+        //setTodosList(result.data.data.todos)
+        setTodosList(utils.mergeData(result.data.data))
         setHasError(null)
       } else {
         setHasError(result.data.errors[0].message)
