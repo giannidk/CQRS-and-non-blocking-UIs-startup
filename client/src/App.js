@@ -36,7 +36,6 @@ function App() {
     api.fetchList()
     .then( result => {
       if(result.data?.data?.todos){
-        //setTodosList(result.data.data.todos)
         setTodosList(utils.mergeData(result.data.data))
         setHasError(null)
       } else {

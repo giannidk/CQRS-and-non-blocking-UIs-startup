@@ -1,6 +1,5 @@
 import MUITableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
-import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
