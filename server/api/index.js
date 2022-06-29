@@ -2,8 +2,6 @@ const axios = require('axios');
 const BASE_URL = "http://localhost:8080/v1/graphql";
 const ADMIN_SECRET = 'hasura'
 
-// 5 - creating branch
-
 const executeUpdateCommand = (data) => {
   console.log('*************************************')
   console.log('*************************************')
@@ -114,6 +112,10 @@ const createResponse = (data) => {
   console.log('*************************************')
   console.log('*************************************')
 
+  const response_status = data.payload.title.includes("ERROR")
+    ? {"error": "error message"}
+    : {"message" : "OK"}
+
   return axios({
     url: BASE_URL,
     method: "POST",
@@ -124,14 +126,16 @@ const createResponse = (data) => {
       variables: {
         cmd_id: data.cmd_id,
         payload: data.payload,
-        cmd_ref: data.cmd_ref
+        cmd_ref: data.cmd_ref,
+        status: response_status
       },
       query: `
-			mutation addResponse($cmd_id: Int!, $payload: json!, $cmd_ref: String!){
+			mutation addResponse($cmd_id: Int!, $payload: json!, $cmd_ref: String!, $status: json!){
 				insert_responses(objects:[{
                     cmd_id: $cmd_id, 
                     payload: $payload, 
-                    cmd_ref: $cmd_ref
+                    cmd_ref: $cmd_ref,
+                    status: $status
                 }]) {
 				  affected_rows
 				  returning {
