@@ -21,6 +21,15 @@ const styles = {
 	},
 	deleted: {
 		background: 'red',
+	},
+	created: {
+		border: '1px solid #FFA900',
+		background: 'rgba(255,169,0, 0.2)',
+		color: "#FFF",
+		cursor: 'not-allowed',
+		pointerEvents: 'none',
+		textShadow: '0px 1px 1px #BBB',
+		opacity: 0.5
 	}
 }
 

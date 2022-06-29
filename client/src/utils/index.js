@@ -23,6 +23,20 @@ export const mergeData = (data) => {
 };
 
 const createItemForDisplay = (item, command) => {
+  if (!item) {
+    //! handle this case by looking if there is a response or not in the command
+    if (command.last_response_at) {
+      return {
+        ...command.data_out,
+      };
+    } else {
+      return {
+        ...command.data_in,
+        status: itemStatus.CREATED,
+      };
+    }
+  }
+
   if (!command)
     return {
       ...item,
@@ -49,6 +63,21 @@ const createItemForDisplay = (item, command) => {
       return {
         ...item,
         status: itemStatus.DELETED,
+      };
+    }
+  }
+
+  if (command.cmd_type === cmdTypes.CREATE) {
+    if (Boolean(command.last_response_at > item.updated_at)) {
+      return {
+        ...item,
+        ...command.data_out,
+        status: itemStatus.OPEN,
+      };
+    } else {
+      return {
+        ...item,
+        status: itemStatus.OPEN,
       };
     }
   }

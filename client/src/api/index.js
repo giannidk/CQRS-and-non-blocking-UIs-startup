@@ -66,17 +66,17 @@ export const addTodo = (title) => {
     },
     data: {
       variables: {
-        id: Date.now(),
         title,
         user_id: USER_ID,
+        id: Date.now(),
       },
       query: `
 			mutation addTodo($id: bigint!, $title: String!, $user_id: String!){
-				insert_todos(objects:[{id: $id,title: $title, user_id: $user_id}]) {
+				insert_commands(objects:[{cmd_type: "${cmdTypes.CREATE}", item_id: $id, payload: {id: $id, title: $title}, cmd_ref: $user_id}]) {
 				  affected_rows
 				  returning {
-					id
-					title
+					cmd_id
+					payload
 				  }
 				}
 			  }
