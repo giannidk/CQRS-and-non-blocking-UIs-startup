@@ -19,6 +19,9 @@ const styles = {
 	open: {
 		background: 'rgba(65, 203, 113, 0.1)',
 	},
+	deleted: {
+		background: 'red',
+	}
 }
 
 
