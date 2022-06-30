@@ -33,6 +33,7 @@ function App() {
     setOpen(false)
   };
 
+  //https://javascript.info/settimeout-setinterval
   let fetchList = () => {
     setIsLoading(true)
     setTimeout(function request() {
