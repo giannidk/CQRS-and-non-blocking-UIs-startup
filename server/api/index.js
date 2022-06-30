@@ -112,7 +112,7 @@ const createResponse = (data) => {
   console.log('*************************************')
   console.log('*************************************')
 
-  const response_status = data.payload.title.includes("ERROR")
+  const response_status = data.payload.title?.includes("ERROR")
     ? {"error": "error message"}
     : {"message" : "OK"}
 

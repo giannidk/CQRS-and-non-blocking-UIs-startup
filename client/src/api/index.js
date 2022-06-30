@@ -43,6 +43,7 @@ export const fetchList = () => {
 					created_at
 					data_in
 					data_out
+					response_status
 				}
 				todos {
 					created_at

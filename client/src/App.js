@@ -25,8 +25,8 @@ function App() {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    setOpen(false)
     setEditingItem(null)
+    setOpen(false)
   };
 
 

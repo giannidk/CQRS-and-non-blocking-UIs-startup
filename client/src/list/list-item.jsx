@@ -4,6 +4,11 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
+import ReportProblemIcon from '@mui/icons-material/ReportProblem';
+import LockIcon from '@mui/icons-material/Lock';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
+import Tooltip from '@mui/material/Tooltip';
 import { itemStatus } from '../constants';
 
 const styles = {
@@ -36,19 +41,56 @@ const styles = {
 		pointerEvents: 'none',
 		textShadow: '0px 1px 1px #BBB',
 		opacity: 0.5
+	},
+	error:  {
+		border: '3px solid red',
+		background: 'rgba(255,0,0, 0.2)',
 	}
+}
+
+
+const printStatus = (status) => {
+	if(!status) return null
+
+	let displayIcon = <LockOpenIcon />
+	let iconColor = 'primary'
+
+	switch(status) {
+		case itemStatus.CREATED:
+			displayIcon = <AccessTimeFilledIcon />
+			iconColor = 'primary'
+			break;
+		case itemStatus.PROCESSING:
+			displayIcon = <LockIcon />
+			iconColor = 'warning'
+			break;
+		case itemStatus.OPEN:
+			displayIcon = <LockOpenIcon />
+			iconColor = 'success'
+			break;
+		case itemStatus.ERROR:
+			displayIcon = <ReportProblemIcon />
+			iconColor = 'error'
+			break;
+		case itemStatus.DELETED:
+			displayIcon = <AutoDeleteIcon />
+			iconColor = 'warning'
+			break;
+		default:
+			displayIcon = <AccessTimeFilledIcon />
+			iconColor = 'warning'
+	}
+
+	return <Tooltip title={status}><IconButton color={iconColor}>{displayIcon}</IconButton></Tooltip>
 }
 
 const ListItem = ({ item, onEdit, onDelete }) => {
 	return (
 		<MUITableRow style={{ ...styles.general, ...styles[item.status] }}>
 			<TableCell sx={{ width: 100 }} align="center">
-				{item.status && `[${item.status}]`}
+				{printStatus(item.status)}
 			</TableCell>
 			<TableCell style={{ flexGrow: '1' }}>
-				{([itemStatus.PROCESSING, itemStatus.CREATED].includes(item.status)) && <IconButton color="primary" onClick={() => onEdit(item)}>
-					<AccessTimeFilledIcon />
-				</IconButton>}
 				{item.title}
 			</TableCell>
 			<TableCell sx={{ width: 170 }} align='right'>

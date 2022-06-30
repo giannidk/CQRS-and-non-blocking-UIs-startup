@@ -7,6 +7,7 @@ export const cmdTypes = {
 export const itemStatus = {
 	PROCESSING: "processing",
 	OPEN: "open",
+	ERROR: "error",
 	DELETED: "deleted",
 	CREATED: "created",
 }
