@@ -49,7 +49,7 @@ const styles = {
 }
 
 
-const printStatus = (status) => {
+const printStatusIcon = (status) => {
 	if(!status) return null
 
 	let displayIcon = <LockOpenIcon />
@@ -88,7 +88,7 @@ const ListItem = ({ item, onEdit, onDelete }) => {
 	return (
 		<MUITableRow style={{ ...styles.general, ...styles[item.status] }}>
 			<TableCell sx={{ width: 100 }} align="center">
-				{printStatus(item.status)}
+				{printStatusIcon(item.status)}
 			</TableCell>
 			<TableCell style={{ flexGrow: '1' }}>
 				{item.title}

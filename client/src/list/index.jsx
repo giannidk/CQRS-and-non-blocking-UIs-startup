@@ -1,39 +1,32 @@
 import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import MUITableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import ItemsTable from './items-table';
 import ListItem from './list-item';
+import * as utils from '../utils'
 
-const TodoList = ({items, onEdit, onDelete}) => {
+const TodoList = ({ items, onEdit, onDelete }) => {
+	const [mappedItems, setMappedItems] = React.useState({});
 
 	React.useEffect(() => {
-		console.log({items})
-	  }, [items]);	
+		console.log({ items })
+		setMappedItems(utils.groupItemsByStatus(items, 'status'))
+	}, [items]);
+
+	const displayList = (listItems) => {
+		if (!listItems) return null
+		return listItems.map((item) => <ListItem
+			key={item.id}
+			item={item}
+			onEdit={onEdit}
+			onDelete={onDelete}
+		/>)
+	}
 
 	return (
-		<TableContainer component={Paper}>
-			<Table style={{ flexGrow: '1' }}>
-				<TableHead>
-					<MUITableRow>
-						<TableCell></TableCell>
-						<TableCell>title</TableCell>
-						<TableCell></TableCell>
-					</MUITableRow>
-				</TableHead>
-				<TableBody>
-					{items.map((item) => <ListItem
-							key={item.id}
-							item={item}
-							onEdit={onEdit}
-							onDelete={onDelete}
-						/>)}
-				</TableBody>
-			</Table>
-		</TableContainer>
+		<>
+			<ItemsTable list={displayList(mappedItems.created)} />
+			<hr />
+			<ItemsTable list={displayList(mappedItems.current)} />
+		</>
 	);
 }
 

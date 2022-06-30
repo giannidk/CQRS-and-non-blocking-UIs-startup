@@ -95,3 +95,17 @@ const createItemForDisplay = (item, command) => {
 		command,
 	};
 };
+
+export const groupItemsByStatus = (arr, property) => {
+    return arr.reduce(function(memo, x) {
+      if(x[property] === 'created') {
+        memo.created.push(x)
+      } else {
+        memo.current.push(x)
+      }
+      return memo;
+    }, {
+      created: [],
+      current: [],
+    });
+  }
