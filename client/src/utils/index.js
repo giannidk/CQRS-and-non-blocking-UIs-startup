@@ -15,9 +15,9 @@ export const mergeData = (data) => {
 
 	const itemsList = Array.from(map.values());
 
-	console.group("MAPPED DATA");
+	/* console.group("MAPPED DATA");
 	console.log({ itemsList });
-	console.groupEnd("MAPPED DATA");
+	console.groupEnd("MAPPED DATA"); */
 
 	return itemsList;
 };

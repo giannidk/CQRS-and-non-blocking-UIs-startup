@@ -6,6 +6,10 @@ import * as utils from '../utils'
 const TodoList = ({ items, onEdit, onDelete }) => {
 	const [mappedItems, setMappedItems] = React.useState({});
 
+	console.group("MAPPED ITEMS");
+		console.log({ mappedItems });
+	console.groupEnd("MAPPED ITEMS");
+
 	React.useEffect(() => {
 		console.log({ items })
 		setMappedItems(utils.groupItemsByStatus(items, 'status'))
