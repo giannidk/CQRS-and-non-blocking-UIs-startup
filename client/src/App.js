@@ -6,6 +6,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Alert from '@mui/material/Alert';
 import * as api from './api'
 import * as utils from './utils'
+import { itemStatus } from './constants';
 
 function App() {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -23,6 +24,8 @@ function App() {
   }, []);
 
   const editItem = (item) => {
+    //TODO: here we should fetch the item and see the current status, then return if the status is not open
+
     setEditingItem(item)
     setOpen(true)
   }
